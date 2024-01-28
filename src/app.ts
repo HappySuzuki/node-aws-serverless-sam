@@ -108,7 +108,7 @@ export const createNote = async (event: APIGatewayProxyEvent): Promise<APIGatewa
 
         const item = {
             id: uuid(),
-            name: body.title,
+            title: body.title,
             content: body.content || '',
         };
 
