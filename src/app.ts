@@ -1,6 +1,6 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { DynamoDB } from 'aws-sdk';
-import { uuid } from 'uuidv4';
+import { v4 as uuidv4 } from 'uuid';
 
 export const FALLBACK_API_ERROR_MSG = 'Something went wrong. Please try again.';
 
@@ -107,7 +107,7 @@ export const createNote = async (event: APIGatewayProxyEvent): Promise<APIGatewa
         if (!body.title) throw new Error('Note title is required.');
 
         const item = {
-            id: uuid(),
+            id: uuidv4(),
             title: body.title,
             content: body.content || '',
         };
