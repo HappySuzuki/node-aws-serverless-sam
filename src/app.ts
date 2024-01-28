@@ -4,10 +4,13 @@ import { uuid } from 'uuidv4';
 
 export const FALLBACK_API_ERROR_MSG = 'Something went wrong. Please try again.';
 
-const dynamo = new DynamoDB.DocumentClient({
-    endpoint: 'http://host.docker.internal:8000',
-    // endpoint: 'http://docker.for.mac.localhost:8000',
-});
+const dynamo = process.env.AWS_SAM_LOCAL
+    ? new DynamoDB.DocumentClient({
+          endpoint: 'http://host.docker.internal:8000',
+          // endpoint: 'http://docker.for.mac.localhost:8000',
+      })
+    : new DynamoDB.DocumentClient();
+
 const TABLE_NAME = process.env.SAMPLE_TABLE as string;
 
 type Note = {
